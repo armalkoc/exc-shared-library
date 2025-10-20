@@ -12,10 +12,10 @@ class Docker implements Serializable {
     }
 
     def buildDockerImage() {
-        withCredentials([usernamePassword(credentialsId: 'docker-full-pip', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-            sh "docker build -t 192.168.0.112:3031/docker-full-pipeline:twn-exc-app-${IMAGE_NAME} ."
-            sh 'echo $PASS | docker login -u $USER --password-stdin 192.168.0.112:3031'
-            sh "docker push 192.168.0.112:3031/docker-full-pipeline:twn-exc-app-${IMAGE_NAME}"
+        source.withCredentials([source.usernamePassword(credentialsId: 'docker-full-pip', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+            source.sh "docker build -t 192.168.0.112:3031/docker-full-pipeline:twn-exc-app-${IMAGE_NAME} ."
+            source.sh "echo '${source.PASS}' | docker login -u '${source.USER}' --password-stdin 192.168.0.112:3031"
+            source.sh "docker push 192.168.0.112:3031/docker-full-pipeline:twn-exc-app-${IMAGE_NAME}"
         }
     }
 }
