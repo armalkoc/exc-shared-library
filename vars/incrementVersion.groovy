@@ -13,7 +13,6 @@ def call() {
                         
         // here we will define our image name based on version variable and build number variable
         env.IMAGE_NAME = "$version-$BUILD_NUMBER"
-        return "${version}-${BUILD_NUMBER}"
 
         // alternative solution without Pipeline Utility Steps plugin:
         // def version = sh (returnStdout: true, script: "grep 'version' package.json | cut -d '\"' -f4 | tr '\\n' '\\0'")
